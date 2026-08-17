@@ -41,4 +41,23 @@ for (texto, linha, coluna) in botoes:
     btn = tk.Button(janela, text=texto, command=comando)
     btn.grid(row=linha, column=coluna, ipadx=18, ipady=12, padx=5, pady=5)
 
+
+def tecla_pressionada(event):
+    tecla = event.char
+    if tecla in '0123456789+-*/':
+        display.insert(tk.END, tecla)
+    elif tecla == '\r':
+        calcular()
+    elif event.keysym == 'BackSpace':
+        texto_atual = display.get()
+        display.delete(0, tk.END)
+        display.insert(0, texto_atual[:-1])
+    elif event.keysym == 'Escape':
+        limpar_display()
+
+janela.bind('<Key>', tecla_pressionada)
+
+
+
+
 janela.mainloop()
